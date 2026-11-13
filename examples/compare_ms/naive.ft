@@ -1,0 +1,68 @@
+
+hardware qubit_gate_ns_e4 = {
+  t1: 100, t2: 100, tm: 500, p1: 1e-4, p2: 1e-4, pm: 1e-4
+};
+
+qecc ms_like using qubit_gate_ns_e4 = {
+  [[n,k,d]]: [441, 1, 21],            
+  SE: { "#ancilla": "n - 1", tSE: "4*t1 + 2*tm" }, 
+  PREP: { time: "tSE", "#SE": "1", "#ancilla": "0" },
+  OPL: {
+    X: { arity: 1, time: "tSE", "#SE": "1", "#ancilla": "0" },
+    Z: { arity: 1, time: "tSE", "#SE": "1", "#ancilla": "0" },
+    H: { arity: 1, time: "tSE", "#SE": "1", "#ancilla": "0" },
+  },
+  OPF: {
+    T: { arity: 1, time: "15*tSE", pF: "0.000000213035", "#ancilla": "9700+(2*k + ceil(sqrt(8*k)) + 1) * (d * d - 1)" }
+  },
+  tdec: "0*tSE",
+  pL: "0.3*(max(p1,p2,pm)/0.01)^((d+1)/2)",
+  naux: "0"
+};
+
+
+
+
+program {
+  logical q := new ms_like_400;
+
+
+  // 
+  H[q[100]];
+  if M(ZZ)[q[0], q[100]]; {
+      if M(XX)[q[100], q[1]]; then Z[q[0]]
+  } then X[q[1]];
+  if M(Z)[q[100]]; then { X[q[1]]; X[q[100]] };
+  // T[q[0]];
+  // T[q[1]];
+  // T[q[2]];
+  // T[q[3]];
+  // T[q[4]];
+  // T[q[5]];
+  // T[q[6]];
+  // T[q[7]];
+  // T[q[8]];
+  // T[q[9]];
+  // T[q[10]];
+  // T[q[11]];
+  // T[q[12]];
+  // T[q[13]];
+  // T[q[14]];
+  // T[q[15]];
+  // T[q[16]];
+  // T[q[17]];
+  // T[q[18]];
+  // T[q[19]];
+  // T[q[20]];
+  // T[q[21]];
+  // T[q[22]];
+  // T[q[23]];
+  // T[q[24]];
+  // T[q[25]];
+  // T[q[26]];
+  // T[q[27]];
+  // T[q[28]];
+  // T[q[29]];
+  // T[q[30]];
+  release(q);
+}

@@ -1,0 +1,57 @@
+# Local design documents and generated results
+/ESTIMATOR_DESIGN_V2.md
+/ESTIMATOR_V2_DESIGN.md
+/results/
+
+# Python bytecode and tool caches (at any depth)
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.ipynb_checkpoints/
+
+# General cache files and directories (at any depth)
+.cache/
+cache/
+*.cache
+*.cache.*
+
+# Temporary files and editor backups (at any depth)
+tmp/
+temp/
+.tmp/
+.temp/
+*.tmp
+*.tmp.*
+*.temp
+*.temp.*
+*.bak
+*.backup
+*.orig
+*.swp
+*.swo
+*~
+.~lock.*#
+\#*#
+
+# Local Python environments and build outputs
+.venv/
+venv/
+.tox/
+.nox/
+/build/
+/dist/
+*.egg-info/
+.coverage
+.coverage.*
+htmlcov/
+
+# Operating-system metadata
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini

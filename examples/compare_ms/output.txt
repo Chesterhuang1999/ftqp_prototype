@@ -1,0 +1,151 @@
+\begin{groupplot}[
+  group style={
+    group name=resourceplots,
+    group size=3 by 1,
+    horizontal sep=2.0em,
+  },
+  width=0.25*396pt,
+  height=0.25*396pt,
+  xlabel={Time cost (ms)},
+  ylabel={Space cost (qubits)},
+  xlabel style={yshift=0.5em},
+  ylabel style={yshift=-0.5em},
+  grid=both,
+  % grid style={dashed,gray!30},
+  scaled x ticks=false,
+  scaled y ticks=true,
+  tick label style={font=\tiny},
+  label style={font=\tiny},
+  title style={font=\scriptsize},
+]
+\nextgroupplot[
+  title={QFT},
+]
+\addplot+[compareLine, color=qubitsHundred, forget plot] coordinates {
+  (18.711,212330)
+  (80.0982,212769)
+};
+\addplot+[msPoint, color=qubitsHundred, forget plot] coordinates {
+  (18.711,212330)
+};
+\addplot+[ourPoint, color=qubitsHundred, forget plot] coordinates {
+  (80.0982,212769)
+};
+\addplot+[compareLine, color=qubitsTwoHundred, forget plot] coordinates {
+  (37.611,398221)
+  (160.738,399541)
+};
+\addplot+[msPoint, color=qubitsTwoHundred, forget plot] coordinates {
+  (37.611,398221)
+};
+\addplot+[ourPoint, color=qubitsTwoHundred, forget plot] coordinates {
+  (160.738,399541)
+};
+\addplot+[compareLine, color=qubitsThreeHundred, forget plot] coordinates {
+  (56.511,582350)
+  (241.378,583670)
+};
+\addplot+[msPoint, color=qubitsThreeHundred, forget plot] coordinates {
+  (56.511,582350)
+};
+\addplot+[ourPoint, color=qubitsThreeHundred, forget plot] coordinates {
+  (241.378,583670)
+};
+\addplot+[compareLine, color=qubitsFourHundred, forget plot] coordinates {
+  (75.411,765598)
+  (322.018,766478)
+};
+\addplot+[msPoint, color=qubitsFourHundred, forget plot] coordinates {
+  (75.411,765598)
+};
+\addplot+[ourPoint, color=qubitsFourHundred, forget plot] coordinates {
+  (322.018,766478)
+};
+\nextgroupplot[
+  title={BV},
+]
+\addplot+[compareLine, color=qubitsHundred, forget plot] coordinates {
+  (0,202630)
+  (8.82,203132)
+};
+\addplot+[msPoint, color=qubitsHundred, forget plot] coordinates {
+  (0,202630)
+};
+\addplot+[ourPoint, color=qubitsHundred, forget plot] coordinates {
+  (8.82,203132)
+};
+\addplot+[compareLine, color=qubitsTwoHundred, forget plot] coordinates {
+  (0,388521)
+  (17.64,389904)
+};
+\addplot+[msPoint, color=qubitsTwoHundred, forget plot] coordinates {
+  (0,388521)
+};
+\addplot+[ourPoint, color=qubitsTwoHundred, forget plot] coordinates {
+  (17.64,389904)
+};
+\addplot+[compareLine, color=qubitsThreeHundred, forget plot] coordinates {
+  (0,572650)
+  (26.46,574033)
+};
+\addplot+[msPoint, color=qubitsThreeHundred, forget plot] coordinates {
+  (0,572650)
+};
+\addplot+[ourPoint, color=qubitsThreeHundred, forget plot] coordinates {
+  (26.46,574033)
+};
+\addplot+[compareLine, color=qubitsFourHundred, forget plot] coordinates {
+  (0,755898)
+  (35.28,756841)
+};
+\addplot+[msPoint, color=qubitsFourHundred, forget plot] coordinates {
+  (0,755898)
+};
+\addplot+[ourPoint, color=qubitsFourHundred, forget plot] coordinates {
+  (35.28,756841)
+};
+\nextgroupplot[
+  title={Ripple-Carry Adder},
+]
+\addplot+[compareLine, color=qubitsHundred, forget plot] coordinates {
+  (51.45,212330)
+  (189.924,212769)
+};
+\addplot+[msPoint, color=qubitsHundred, forget plot] coordinates {
+  (51.45,212330)
+};
+\addplot+[ourPoint, color=qubitsHundred, forget plot] coordinates {
+  (189.924,212769)
+};
+\addplot+[compareLine, color=qubitsTwoHundred, forget plot] coordinates {
+  (103.95,398221)
+  (383.544,399541)
+};
+\addplot+[msPoint, color=qubitsTwoHundred, forget plot] coordinates {
+  (103.95,398221)
+};
+\addplot+[ourPoint, color=qubitsTwoHundred, forget plot] coordinates {
+  (383.544,399541)
+};
+\addplot+[compareLine, color=qubitsThreeHundred, forget plot] coordinates {
+  (156.45,582350)
+  (577.164,583670)
+};
+\addplot+[msPoint, color=qubitsThreeHundred, forget plot] coordinates {
+  (156.45,582350)
+};
+\addplot+[ourPoint, color=qubitsThreeHundred, forget plot] coordinates {
+  (577.164,583670)
+};
+\addplot+[compareLine, color=qubitsFourHundred, forget plot] coordinates {
+  (208.95,765598)
+  (770.784,766478)
+};
+\addplot+[msPoint, color=qubitsFourHundred, forget plot] coordinates {
+  (208.95,765598)
+};
+\addplot+[ourPoint, color=qubitsFourHundred, forget plot] coordinates {
+  (770.784,766478)
+};
+
+\end{groupplot}

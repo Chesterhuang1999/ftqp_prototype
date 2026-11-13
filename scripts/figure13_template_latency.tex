@@ -1,0 +1,284 @@
+% Plotting code of Fig. resource-result with the latency-sweep bottom row.
+% Top row: copied unchanged from scripts/figure13_template.tex (the paper's
+% mean-latency d-sweep: decoding time, error rate, space, time).
+% Bottom row: error rate and time at d = 27 versus the decoding latency,
+% from \plotlatsweep (examples/logicalT-exp/collect_latency.py).
+% The data tables are defined by the results file that scripts/plot_figure13.sh
+% inserts before this code.
+  \begin{tikzpicture}
+
+    % Odd-d curves are connected line plots.
+    % Even-d curves are dashed vertical stems with markers.
+    \pgfplotsset{
+        oddA/.style={
+            blue,
+            solid,
+            mark=*,
+            % mark size=2pt,
+        },
+        oddB/.style={
+            red,
+            solid,
+            mark=square*,
+            % mark size=2pt,
+        },
+        evenA/.style={
+            blue,
+            % dashed,
+            % ycomb,
+            mark=*,
+            opacity=0.2,
+            mark size=1.2pt,
+        },
+        evenB/.style={
+            red,
+            % dashed,
+            % ycomb,
+            opacity=0.2,
+            mark=square*,
+            mark size=1.2pt,
+        },
+    }
+
+    \begin{groupplot}[
+        group style={
+            group name=resourceplots,
+            group size=4 by 1,
+            horizontal sep=3.3em,
+        },
+        width=0.27\textwidth,
+        height=0.26\textwidth,
+        xlabel={Code distance $d$},
+        xtick={23,25,27,29,31},
+        xlabel style={yshift=0.5em},
+        grid=both,
+        tick label style={font=\scriptsize},
+        label style={font=\scriptsize},
+        title style={font=\scriptsize},
+        legend style={
+            font=\scriptsize,
+            at={(1.3,-0.45)},
+            anchor=north,
+            legend columns=4,
+        },
+    ]
+
+    % Plot 1: unchanged.
+    \nextgroupplot[
+        title={Mean decoding time},
+        ylabel={\(\#\mathrm{SE}\) cycles},
+        ylabel style={yshift=-0.5em},
+        ymin=0,
+        scaled y ticks=false,
+        yticklabel={
+            \pgfmathparse{\tick/100}
+            \pgfmathprintnumber[fixed,precision=2]{\pgfmathresult}
+        },
+        extra description/.code={
+            \node[font=\scriptsize, anchor=south west]
+              at (axis description cs:-0.13,0.96) {$\times 10^2$};
+        },
+    ]
+    \addplot+[mark=square*, red] table[x=d,y=dec] {\plottdecmean};
+    \addplot+[mark=*, blue] table[x=d,y=dec] {\plottdecmean};
+
+    % Plot 2: error rate.
+    \nextgroupplot[
+        title={Error rate},
+        ylabel={Error rate (\%)},
+        ylabel style={yshift=-0.5em},
+        % ytick distance=1,
+        ymin=0,
+    ]
+    \addplot+[oddA]  table[x=d,y=errA] {\plotdataoddmean};
+    \addplot+[oddB]  table[x=d,y=errB] {\plotdataoddmean};
+    \addplot+[evenA] table[x=d,y=errA] {\plotdataevenmean};
+    \addplot+[evenB] table[x=d,y=errB] {\plotdataevenmean};
+
+    % Plot 3: space cost.
+    \nextgroupplot[
+        title={Space cost},
+        ylabel={\#physical qubits},
+        ylabel style={yshift=-0.5em},
+        % ymin=0,
+        scaled y ticks=false,
+        ytick distance=1000,
+        yticklabel={
+            \pgfmathparse{\tick/1000}
+            \pgfmathprintnumber[fixed,precision=1]{\pgfmathresult}
+        },
+        extra description/.code={
+            \node[font=\scriptsize, anchor=south west]
+              at (axis description cs:-0.13,0.96) {$\times 10^3$};
+        },
+    ]
+    \addplot+[oddA]  table[x=d,y=spaceA] {\plotdataoddmean};
+    \addplot+[oddB]  table[x=d,y=spaceB] {\plotdataoddmean};
+    \addplot+[evenA] table[x=d,y=spaceA] {\plotdataevenmean};
+    \addplot+[evenB] table[x=d,y=spaceB] {\plotdataevenmean};
+
+    % Plot 4: time cost, with the second y-axis added below.
+    \nextgroupplot[
+        title={Time cost},
+        ylabel={Total \(\#\mathrm{SE}\) cycles},
+        ylabel style={yshift=-0.5em},
+        ymin=0,
+        ymax=11000,
+        ytick={0,2500,5000,7500,10000},
+        scaled y ticks=false,
+        yticklabel={
+            \pgfmathparse{\tick/1000}
+            \pgfmathprintnumber[fixed,precision=1]{\pgfmathresult}
+        },
+        extra description/.code={
+            \node[font=\scriptsize, anchor=south west]
+              at (axis description cs:-0.13,0.96) {$\times 10^3$};
+            \node[font=\scriptsize, anchor=south west]
+              at (axis description cs:0.87,0.96) {$\times 10^2$};
+        },
+    ]
+    \addplot+[oddA]  table[x=d,y=timeA] {\plotdataoddmean};
+    \addplot+[oddB]  table[x=d,y=timeB] {\plotdataoddmean};
+    \addplot+[evenA] table[x=d,y=timeA] {\plotdataevenmean};
+    \addplot+[evenB] table[x=d,y=timeB] {\plotdataevenmean};
+
+    \end{groupplot}
+
+    % Right y-axis for Plot 4.
+    \begin{axis}[
+        at={(resourceplots c4r1.south west)},
+        anchor=south west,
+        width=0.27\textwidth,
+        height=0.26\textwidth,
+        xmin=23,
+        xmax=31,
+        ymin=0,
+        ymax=11000,
+        xtick=\empty,
+        axis x line=none,
+        axis y line*=right,
+        ytick={0,2500,5000,7500,10000},
+        scaled y ticks=false,
+        yticklabel={
+            \pgfmathparse{\tick/3700}
+            \pgfmathprintnumber[fixed,precision=1]{\pgfmathresult}
+        },
+        ylabel={\(\#\mathrm{SE}\) cycles per gate},
+        ylabel style={yshift=0.5em},
+        tick label style={font=\scriptsize},
+        label style={font=\scriptsize},
+        grid=none,
+    ]
+    \end{axis}
+
+    \end{tikzpicture}
+
+    \begin{tikzpicture}
+
+    % Bottom row: decoding-latency sweep at d = 27 (\plotlatsweep).
+    % Same curve styles as the odd-d curves of the top row.
+    \pgfplotsset{
+        oddA/.style={
+            blue,
+            solid,
+            mark=*,
+            % mark size=2pt,
+        },
+        oddB/.style={
+            red,
+            solid,
+            mark=square*,
+            % mark size=2pt,
+        },
+        evenA/.style={
+            blue,
+            % dashed,
+            % ycomb,
+            mark=*,
+            opacity=0.2,
+            mark size=1.2pt,
+        },
+        evenB/.style={
+            red,
+            % dashed,
+            % ycomb,
+            opacity=0.2,
+            mark=square*,
+            mark size=1.2pt,
+        },
+        % Dashed vertical line at the mean latency of d = 27 (t_dec = 390).
+        meanline/.style={
+            extra description/.append code={
+                \draw[black!60, dashed]
+                  ({axis cs:390,0} |- {rel axis cs:0,0}) -- ({axis cs:390,0} |- {rel axis cs:0,1});
+                \node[font=\scriptsize, text=black!70, anchor=north east, inner sep=1.5pt]
+                  at ({axis cs:390,0} |- {rel axis cs:0,0.99}) {mean};
+            },
+        },
+    }
+
+    \begin{groupplot}[
+        group style={
+            group name=latencyplots,
+            group size=2 by 1,
+            % wider than the top row: the long x labels must not touch
+            horizontal sep=5em,
+        },
+        width=0.27\textwidth,
+        height=0.26\textwidth,
+        xlabel={Decoding latency \(t_{\mathrm{dec}}\) (\(\#\mathrm{SE}\) cycles)},
+        xmin=0,
+        xmax=1000,
+        xtick={0,250,500,750,1000},
+        xticklabel style={/pgf/number format/1000 sep={}},
+        xlabel style={yshift=0.5em},
+        grid=both,
+        tick label style={font=\scriptsize},
+        label style={font=\scriptsize},
+        title style={font=\scriptsize},
+        legend style={
+            font=\scriptsize,
+            at={(1.24,-0.45)},
+            anchor=north,
+            legend columns=4,
+        },
+    ]
+
+    % Plot 1: error rate at d = 27.
+    \nextgroupplot[
+        title={Error rate (\(d=27\))},
+        ylabel={Error rate (\%)},
+        ylabel style={yshift=-0.5em},
+        ymin=0,
+        meanline,
+    ]
+    \addplot+[oddA] table[x=tdec,y=errA] {\plotlatsweep};
+    \addplot+[oddB] table[x=tdec,y=errB] {\plotlatsweep};
+    % The legend also covers the hybrid points of the top row.
+    \addlegendimage{evenA}
+    \addlegendimage{evenB}
+    \legend{\mbox{Naive\quad},  \mbox{Auto-corrected\quad}, \mbox{Naive hybrid\quad}, \mbox{Auto-corrected hybrid\quad}}
+
+    % Plot 2: time cost at d = 27.
+    \nextgroupplot[
+        title={Time cost (\(d=27\))},
+        ylabel={Total \(\#\mathrm{SE}\) cycles},
+        ylabel style={yshift=-0.5em},
+        ymin=0,
+        scaled y ticks=false,
+        yticklabel={
+            \pgfmathparse{\tick/1000}
+            \pgfmathprintnumber[fixed,precision=1]{\pgfmathresult}
+        },
+        extra description/.code={
+            \node[font=\scriptsize, anchor=south west]
+              at (axis description cs:-0.13,0.96) {$\times 10^3$};
+        },
+        meanline,
+    ]
+    \addplot+[oddA] table[x=tdec,y=timeA] {\plotlatsweep};
+    \addplot+[oddB] table[x=tdec,y=timeB] {\plotlatsweep};
+
+    \end{groupplot}
+
+    \end{tikzpicture}

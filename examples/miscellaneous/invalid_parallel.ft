@@ -1,0 +1,21 @@
+hardware sc = {
+  t1: 1e-8, t2: 1e-7, tm: 1e-6,
+  p1: 1e-3, p2: 2e-3, pm: 3e-3
+};
+
+qecc tiny using sc = {
+  [[n,k,d]]: [1, 1, 1],
+  SE: { "#ancilla": "0", tSE: "tm" },
+  PREP: { time: "t1", "#SE": "1", "#ancilla": "0" },
+  OPL: { X: { arity: 1, time: "t1", "#SE": "1", "#ancilla": "0" } },
+  OPF: {},
+  tdec: "tm",
+  pL: "p1",
+  naux: "0"
+};
+
+program {
+  logical q := new tiny {
+    X[q] || X[q]
+  }
+}

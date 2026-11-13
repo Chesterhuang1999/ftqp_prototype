@@ -1,0 +1,59 @@
+hardware superconducting = {
+  t1: 1e-8, t2: 1e-7, tm: 1e-6, p1: 1e-3, p2: 2e-3, pm: 3e-3
+};
+
+qecc BB using superconducting = {
+  [[n,k,d]] : [98, 6, 12],
+  SE: { "#ancilla": "n", tSE: "0" },
+  PREP: { time: "0", "#SE": "d", "#ancilla": "0" },
+  OPL: {
+    Z: { arity: 1, time: "0", "#SE": "d", "#ancilla": "0" }, 
+    X: { arity: 1, time: "0", "#SE": "d", "#ancilla": "0" }, 
+  },
+  OPF: { },
+  tdec: "0",
+  pL: "0",
+  naux: "47"
+};
+
+qecc LP using superconducting = {
+  [[n,k,d]] : [200, 20, 10],
+  SE: { "#ancilla": "n-8", tSE: "0" },
+  PREP: { time: "0", "#SE": "d", "#ancilla": "0" },
+  OPL: { 
+    H: { arity: 1, time: "0", "#SE": "d", "#ancilla": "0" }, 
+  },
+  OPF: { },
+  tdec: "0",
+  pL: "0",
+  naux: "41"
+};
+
+def cnot(control, target) {
+  logical anc := new LP;
+  prepare(anc);
+  H[anc[0][0]];
+  if M(ZZ)[control, anc[0][0]];
+    (if M(XX)[anc[0][0], target]; then Z[control])
+  then X[target];
+  if M(Z)[anc[0][0]]; then X[target];
+  release(anc);
+}
+
+program {
+  logical ctl := new BB;
+  logical tgt := new BB;
+
+  // perform a logical CNOT from ctl to tgt
+  logical anc := new LP;
+  prepare(anc);
+  H[anc[0]];
+  if M(ZZ)[ctl[0], anc[0]];
+    (if M(XX)[anc[0], tgt[0]]; then Z[ctl[0]])
+  then X[tgt[0]];
+  if M(Z)[anc[0]]; then X[tgt[0]];
+  release(anc);
+
+  release(tgt);
+  release(ctl);
+}

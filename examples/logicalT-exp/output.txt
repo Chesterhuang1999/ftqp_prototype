@@ -1,0 +1,55 @@
+% paste into exp.tex
+
+% data for 99.9th percentile decoding time
+\pgfplotstableread{
+d   dec
+23  0
+25  0
+27  255
+29  470
+31  1760
+}\plottdecpercentile
+
+\pgfplotstableread{
+d   errA   timeA  spaceA  errB   timeB  spaceB
+23   7.07  1150   2712    9.11  1058   3769
+25   4.10  1250   3198    5.29  1150   4447
+27   4.93  2544   3724    3.66  1752   5181
+29   3.94  3713   4290    2.34  2274   5971
+31   6.02  10257  4896    3.81  7350   6817
+}\plotdataoddpercentile
+
+\pgfplotstableread{
+d   errA   timeA  spaceA  errB   timeB  spaceB
+24   4.76  1226   2904    7.57  1132   3961
+26   5.56  2269   3406    4.37  1224   4655
+28   4.57  3478   3948    2.82  1826   5405
+30   6.77  8947   4530    2.34  4135   6211
+}\plotdataevenpercentile
+
+% data for mean decoding time
+\pgfplotstableread{
+d   dec
+23  200
+25  280
+27  390
+29  520
+31  680
+}\plottdecmean
+
+\pgfplotstableread{
+d   errA   timeA  spaceA  errB   timeB  spaceB
+23  13.83  2081   2712   10.74  1458   3769
+25   9.38  2575   3198    6.55  1710   4447
+27   6.37  3219   3724    3.99  2022   5181
+29   4.23  3963   4290    2.40  2374   5971
+31   2.78  4857   4896    1.61  3030   6817
+}\plotdataoddmean
+
+\pgfplotstableread{
+d   errA   timeA  spaceA  errB   timeB  spaceB
+24  10.94  2475   2904    8.45  1532   3961
+26   7.45  3089   3406    5.03  1784   4655
+28   4.97  3813   3948    3.00  2096   5405
+30   3.27  4677   4530    1.76  2448   6211
+}\plotdataevenmean

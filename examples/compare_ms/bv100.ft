@@ -1,0 +1,549 @@
+hardware qubit_gate_ns_e4 = {
+  t1: 100, t2: 100, tm: 500, p1: 1e-4, p2: 1e-4, pm: 1e-4
+};
+
+qecc ms_like_100 using qubit_gate_ns_e4 = {
+  [[n,k,d]]: [100989, 101, 21],             // n = (2k + ceil(sqrt(8k)) + 1) * (d * d) = 441*441 = 194481
+  SE: { "#ancilla": "(2*k + ceil(sqrt(8*k)) + 1) * (d * d - 1)", tSE: "4t1+2tm" }, 
+  PREP: { time: "d*tSE", "#SE": "0", "#ancilla": "0" },
+  OPL: {
+    X: { arity: 1, time: "0", "#SE": "0", "#ancilla": "0" },
+    Z: { arity: 1, time: "0", "#SE": "0", "#ancilla": "0" },
+    H: { arity: 1, time: "0", "#SE": "0", "#ancilla": "0" },
+  },
+  OPF: {
+    T: { arity: 1, time: "15*tSE", pF: "0.000000213035", "#ancilla": "9700+(2*k + ceil(sqrt(8*k)) + 1) * (d * d - 1)" }
+  },
+  tdec: "0*tSE",
+  pL: "0.3*(max(p1,p2,pm)/0.01)^((d+1)/2)",
+  naux: "0"
+};
+
+program {
+    logical q := new ms_like_100;
+
+    // 100-qubit Bernstein-Vazirani-style Clifford circuit over H/X/Z/CNOT.
+    // q[0..98] are inputs and q[99] is the oracle output qubit.
+    // q[100] is the reusable CNOT ancilla.
+    X[q[99]];
+    H[q[99]];
+    H[q[0]];
+    H[q[1]];
+    H[q[2]];
+    H[q[3]];
+    H[q[4]];
+    H[q[5]];
+    H[q[6]];
+    H[q[7]];
+    H[q[8]];
+    H[q[9]];
+    H[q[10]];
+    H[q[11]];
+    H[q[12]];
+    H[q[13]];
+    H[q[14]];
+    H[q[15]];
+    H[q[16]];
+    H[q[17]];
+    H[q[18]];
+    H[q[19]];
+    H[q[20]];
+    H[q[21]];
+    H[q[22]];
+    H[q[23]];
+    H[q[24]];
+    H[q[25]];
+    H[q[26]];
+    H[q[27]];
+    H[q[28]];
+    H[q[29]];
+    H[q[30]];
+    H[q[31]];
+    H[q[32]];
+    H[q[33]];
+    H[q[34]];
+    H[q[35]];
+    H[q[36]];
+    H[q[37]];
+    H[q[38]];
+    H[q[39]];
+    H[q[40]];
+    H[q[41]];
+    H[q[42]];
+    H[q[43]];
+    H[q[44]];
+    H[q[45]];
+    H[q[46]];
+    H[q[47]];
+    H[q[48]];
+    H[q[49]];
+    H[q[50]];
+    H[q[51]];
+    H[q[52]];
+    H[q[53]];
+    H[q[54]];
+    H[q[55]];
+    H[q[56]];
+    H[q[57]];
+    H[q[58]];
+    H[q[59]];
+    H[q[60]];
+    H[q[61]];
+    H[q[62]];
+    H[q[63]];
+    H[q[64]];
+    H[q[65]];
+    H[q[66]];
+    H[q[67]];
+    H[q[68]];
+    H[q[69]];
+    H[q[70]];
+    H[q[71]];
+    H[q[72]];
+    H[q[73]];
+    H[q[74]];
+    H[q[75]];
+    H[q[76]];
+    H[q[77]];
+    H[q[78]];
+    H[q[79]];
+    H[q[80]];
+    H[q[81]];
+    H[q[82]];
+    H[q[83]];
+    H[q[84]];
+    H[q[85]];
+    H[q[86]];
+    H[q[87]];
+    H[q[88]];
+    H[q[89]];
+    H[q[90]];
+    H[q[91]];
+    H[q[92]];
+    H[q[93]];
+    H[q[94]];
+    H[q[95]];
+    H[q[96]];
+    H[q[97]];
+    H[q[98]];
+    // implementation of cx q[0], q[99];
+    H[q[100]];
+    if M(ZZ)[q[0], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[0]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[2], q[99];
+    H[q[100]];
+    if M(ZZ)[q[2], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[2]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[4], q[99];
+    H[q[100]];
+    if M(ZZ)[q[4], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[4]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[6], q[99];
+    H[q[100]];
+    if M(ZZ)[q[6], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[6]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[8], q[99];
+    H[q[100]];
+    if M(ZZ)[q[8], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[8]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[10], q[99];
+    H[q[100]];
+    if M(ZZ)[q[10], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[10]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[12], q[99];
+    H[q[100]];
+    if M(ZZ)[q[12], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[12]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[14], q[99];
+    H[q[100]];
+    if M(ZZ)[q[14], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[14]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[16], q[99];
+    H[q[100]];
+    if M(ZZ)[q[16], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[16]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[18], q[99];
+    H[q[100]];
+    if M(ZZ)[q[18], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[18]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[20], q[99];
+    H[q[100]];
+    if M(ZZ)[q[20], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[20]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[22], q[99];
+    H[q[100]];
+    if M(ZZ)[q[22], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[22]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[24], q[99];
+    H[q[100]];
+    if M(ZZ)[q[24], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[24]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[26], q[99];
+    H[q[100]];
+    if M(ZZ)[q[26], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[26]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[28], q[99];
+    H[q[100]];
+    if M(ZZ)[q[28], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[28]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[30], q[99];
+    H[q[100]];
+    if M(ZZ)[q[30], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[30]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[32], q[99];
+    H[q[100]];
+    if M(ZZ)[q[32], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[32]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[34], q[99];
+    H[q[100]];
+    if M(ZZ)[q[34], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[34]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[36], q[99];
+    H[q[100]];
+    if M(ZZ)[q[36], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[36]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[38], q[99];
+    H[q[100]];
+    if M(ZZ)[q[38], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[38]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[40], q[99];
+    H[q[100]];
+    if M(ZZ)[q[40], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[40]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[42], q[99];
+    H[q[100]];
+    if M(ZZ)[q[42], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[42]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[44], q[99];
+    H[q[100]];
+    if M(ZZ)[q[44], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[44]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[46], q[99];
+    H[q[100]];
+    if M(ZZ)[q[46], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[46]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[48], q[99];
+    H[q[100]];
+    if M(ZZ)[q[48], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[48]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[50], q[99];
+    H[q[100]];
+    if M(ZZ)[q[50], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[50]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[52], q[99];
+    H[q[100]];
+    if M(ZZ)[q[52], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[52]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[54], q[99];
+    H[q[100]];
+    if M(ZZ)[q[54], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[54]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[56], q[99];
+    H[q[100]];
+    if M(ZZ)[q[56], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[56]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[58], q[99];
+    H[q[100]];
+    if M(ZZ)[q[58], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[58]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[60], q[99];
+    H[q[100]];
+    if M(ZZ)[q[60], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[60]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[62], q[99];
+    H[q[100]];
+    if M(ZZ)[q[62], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[62]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[64], q[99];
+    H[q[100]];
+    if M(ZZ)[q[64], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[64]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[66], q[99];
+    H[q[100]];
+    if M(ZZ)[q[66], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[66]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[68], q[99];
+    H[q[100]];
+    if M(ZZ)[q[68], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[68]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[70], q[99];
+    H[q[100]];
+    if M(ZZ)[q[70], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[70]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[72], q[99];
+    H[q[100]];
+    if M(ZZ)[q[72], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[72]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[74], q[99];
+    H[q[100]];
+    if M(ZZ)[q[74], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[74]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[76], q[99];
+    H[q[100]];
+    if M(ZZ)[q[76], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[76]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[78], q[99];
+    H[q[100]];
+    if M(ZZ)[q[78], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[78]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[80], q[99];
+    H[q[100]];
+    if M(ZZ)[q[80], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[80]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[82], q[99];
+    H[q[100]];
+    if M(ZZ)[q[82], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[82]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[84], q[99];
+    H[q[100]];
+    if M(ZZ)[q[84], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[84]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[86], q[99];
+    H[q[100]];
+    if M(ZZ)[q[86], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[86]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[88], q[99];
+    H[q[100]];
+    if M(ZZ)[q[88], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[88]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[90], q[99];
+    H[q[100]];
+    if M(ZZ)[q[90], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[90]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[92], q[99];
+    H[q[100]];
+    if M(ZZ)[q[92], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[92]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[94], q[99];
+    H[q[100]];
+    if M(ZZ)[q[94], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[94]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[96], q[99];
+    H[q[100]];
+    if M(ZZ)[q[96], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[96]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    // implementation of cx q[98], q[99];
+    H[q[100]];
+    if M(ZZ)[q[98], q[100]]; {
+        if M(XX)[q[100], q[99]]; then Z[q[98]]
+    } then X[q[99]];
+    if M(Z)[q[100]]; then { X[q[99]]; X[q[100]] };
+    Z[q[1]];
+    Z[q[7]];
+    Z[q[13]];
+    Z[q[19]];
+    Z[q[25]];
+    Z[q[31]];
+    Z[q[37]];
+    Z[q[43]];
+    Z[q[49]];
+    Z[q[55]];
+    Z[q[61]];
+    Z[q[67]];
+    Z[q[73]];
+    Z[q[79]];
+    Z[q[85]];
+    Z[q[91]];
+    Z[q[97]];
+    H[q[0]];
+    H[q[1]];
+    H[q[2]];
+    H[q[3]];
+    H[q[4]];
+    H[q[5]];
+    H[q[6]];
+    H[q[7]];
+    H[q[8]];
+    H[q[9]];
+    H[q[10]];
+    H[q[11]];
+    H[q[12]];
+    H[q[13]];
+    H[q[14]];
+    H[q[15]];
+    H[q[16]];
+    H[q[17]];
+    H[q[18]];
+    H[q[19]];
+    H[q[20]];
+    H[q[21]];
+    H[q[22]];
+    H[q[23]];
+    H[q[24]];
+    H[q[25]];
+    H[q[26]];
+    H[q[27]];
+    H[q[28]];
+    H[q[29]];
+    H[q[30]];
+    H[q[31]];
+    H[q[32]];
+    H[q[33]];
+    H[q[34]];
+    H[q[35]];
+    H[q[36]];
+    H[q[37]];
+    H[q[38]];
+    H[q[39]];
+    H[q[40]];
+    H[q[41]];
+    H[q[42]];
+    H[q[43]];
+    H[q[44]];
+    H[q[45]];
+    H[q[46]];
+    H[q[47]];
+    H[q[48]];
+    H[q[49]];
+    H[q[50]];
+    H[q[51]];
+    H[q[52]];
+    H[q[53]];
+    H[q[54]];
+    H[q[55]];
+    H[q[56]];
+    H[q[57]];
+    H[q[58]];
+    H[q[59]];
+    H[q[60]];
+    H[q[61]];
+    H[q[62]];
+    H[q[63]];
+    H[q[64]];
+    H[q[65]];
+    H[q[66]];
+    H[q[67]];
+    H[q[68]];
+    H[q[69]];
+    H[q[70]];
+    H[q[71]];
+    H[q[72]];
+    H[q[73]];
+    H[q[74]];
+    H[q[75]];
+    H[q[76]];
+    H[q[77]];
+    H[q[78]];
+    H[q[79]];
+    H[q[80]];
+    H[q[81]];
+    H[q[82]];
+    H[q[83]];
+    H[q[84]];
+    H[q[85]];
+    H[q[86]];
+    H[q[87]];
+    H[q[88]];
+    H[q[89]];
+    H[q[90]];
+    H[q[91]];
+    H[q[92]];
+    H[q[93]];
+    H[q[94]];
+    H[q[95]];
+    H[q[96]];
+    H[q[97]];
+    H[q[98]];
+    H[q[99]];
+    X[q[99]];
+
+    release(q);
+}

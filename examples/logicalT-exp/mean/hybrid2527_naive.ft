@@ -1,0 +1,89 @@
+
+hardware superconducting = {
+  t1: 1e-8, t2: 1e-7, tm: 1e-6, p1: 1e-3, p2: 2e-3, pm: 3e-3
+};
+
+qecc surface_code_25 using superconducting = {
+  [[n,k,d]]: [625, 1, 25],
+  SE: { "#ancilla": "n-1", tSE: "0.000001" },
+  PREP: { time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+  OPL: {
+    I: { arity: 1, time: "0", "#SE": "0", "#ancilla": "0" },
+    X: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+    Z: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+    H: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+    measZ: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" }
+  },
+  OPF: {
+    // LC S-resource injection: fixed accepted-state risk at reference p=0.003.
+    // Error-only model: no extra time beyond the existing PREP allocation;
+    // expansion and postselection retry overheads are not modeled here.
+    faultyS: { arity: 1, time: "0", pF: "0.0046", "#ancilla": "0" },
+    faultyT: { arity: 1, time: "2t1+2tm", pF: "max(p1, p2, pm)", "#ancilla": "0"
+    }
+  },
+  tdec: "280*tSE",
+  pL: "0.1*(max(p1,p2,pm)/0.0057)^((d+1)/2)",
+  naux: "d*d"
+};
+
+qecc surface_code_27 using superconducting = {
+  [[n,k,d]]: [729, 1, 27],
+  SE: { "#ancilla": "n-1", tSE: "0.000001" },
+  PREP: { time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+  OPL: {
+    I: { arity: 1, time: "0", "#SE": "0", "#ancilla": "0" },
+    X: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+    Z: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+    H: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" },
+    measZ: { arity: 1, time: "d*tSE", "#SE": "d", "#ancilla": "0" }
+  },
+  OPF: {
+    // LC S-resource injection: fixed accepted-state risk at reference p=0.003.
+    // Error-only model: no extra time beyond the existing PREP allocation;
+    // expansion and postselection retry overheads are not modeled here.
+    faultyS: { arity: 1, time: "0", pF: "0.0046", "#ancilla": "0" },
+    faultyT: { arity: 1, time: "2t1+2tm", pF: "max(p1, p2, pm)", "#ancilla": "0"
+    }
+  },
+  tdec: "390*tSE",
+  pL: "0.1*(max(p1,p2,pm)/0.0057)^((d+1)/2)",
+  naux: "d*d"
+};
+
+
+
+def gateT(q: Codeblock) {
+  logical anc := new surface_code_25;
+  prepare(anc);
+  // call prepare_T_magic_state(anc);
+  if M(ZZ)[q[0], anc]; {
+    // intermediate statement
+    if M(X)[anc]; then Z[q[0]];
+  } then {
+    // implement logical S gate
+    prepare(anc);
+    faultyS[anc];
+    // faultyS supplies the S-resource injection error budget.
+    if M(ZZ)[q[0], anc]; {
+      if M(X)[anc]; then Z[q[0]];
+    } then Z[q[0]];
+  };
+  release(anc);
+}
+
+def naive_implementation(q: Codeblock) {
+    call gateT(q);
+    H[q];H[q];H[q];H[q];H[q];H[q];
+    H[q];H[q];H[q];H[q];H[q];H[q];
+    H[q];H[q];H[q];H[q];H[q];H[q];
+    H[q];H[q];H[q];H[q];H[q];H[q];
+    H[q];H[q];H[q];H[q];H[q];H[q];
+    H[q];H[q];H[q];H[q];H[q];H[q];
+}
+
+program {
+  logical q := new surface_code_27;
+  call naive_implementation(q);
+  release(q);
+}
